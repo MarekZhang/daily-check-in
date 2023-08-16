@@ -1,0 +1,65 @@
+FROM node:18-alpine AS base
+
+RUN mkdir /home/node/backend && chown -R node:node /home/node/backend
+
+FROM base AS dependencies
+
+WORKDIR /home/node/backend
+
+COPY package*.json ../pnpm-lock.yaml  ./
+
+RUN npm install -g pnpm
+
+RUN pnpm install
+
+FROM base AS dev
+
+WORKDIR /home/node/backend
+
+COPY --chown=node:node . .
+
+RUN npm install -g pnpm
+
+RUN npm install -g nodemon
+
+RUN npm install -g ts-node
+
+RUN pnpm install
+
+EXPOSE 3002
+
+CMD ["npm", "run", "dev"]
+
+# FROM base AS build
+
+# WORKDIR /app
+# COPY . .
+# COPY --from=dependencies /app/node_modules ./node_modules
+# RUN pnpm build
+# RUN pnpm prune --prod
+
+# FROM base AS deploy
+
+# WORKDIR /app
+# COPY --from=build /app/dist/ ./dist/
+# COPY --from=build /app/node_modules ./node_modules
+
+# CMD [ "node", "dist/main.js" ]
+
+# FROM node:18-alpine
+
+# RUN npm install -g pnpm
+
+# RUN mkdir /app 
+
+# WORKDIR /app
+
+# COPY package*.json ../pnpm-lock.yaml  ./
+
+# RUN pnpm install
+
+# COPY . .
+
+# EXPOSE 3002
+
+# CMD ["pnpm", "run", "dev"]

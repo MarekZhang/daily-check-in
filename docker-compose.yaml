@@ -1,0 +1,24 @@
+version: "3.1"
+services:
+  leetcode-checkin-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+      target: dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/home/node/frontend
+      - /home/node/frontend/node_modules
+  leetcode-checkin-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+      target: dev
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./backend:/home/node/backend
+      - /home/node/backend/node_modules
+    depends_on:
+      - leetcode-checkin-frontend
