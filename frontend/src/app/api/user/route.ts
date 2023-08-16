@@ -5,7 +5,7 @@ export async function POST(req: Request) {
 
   let data;
 
-  const res = await fetch("http://localhost:3002/api/v1/users", {
+  const res = await fetch("http://leetcode-checkin-backend:3002/api/v1/users", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   const res = await fetch(
-    "http://leetcode-checkin-backend:3002/api/v1/checkin/today",
+    "http://leetcode-checkin-backend:3002/api/v1/checkin/week",
     {
       next: { revalidate: 1 },
     }
