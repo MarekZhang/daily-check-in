@@ -22,7 +22,7 @@ WORKDIR /home/node/backend
 
 RUN npm run build
 
-FROM dependencies AS prod
+FROM build AS prod
 
 
 EXPOSE 3002

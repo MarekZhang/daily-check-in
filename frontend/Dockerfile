@@ -21,7 +21,7 @@ COPY . .
 
 RUN npm run build
 
-FROM dependencies as prod
+FROM build as prod
 
 WORKDIR /home/node/frontend
 
