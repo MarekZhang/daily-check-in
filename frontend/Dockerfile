@@ -13,14 +13,20 @@ COPY package*.json ./
 
 RUN npm install
 
-FROM dependencies as dev
+FROM dependencies as build
 
 WORKDIR /home/node/frontend
 
 COPY . .
 
-# Expose port 3000
+RUN npm run build
+
+FROM dependencies as prod
+
+WORKDIR /home/node/frontend
+
 EXPOSE 3000
 
-# Start the app
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
+
+

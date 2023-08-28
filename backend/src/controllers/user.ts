@@ -1,5 +1,5 @@
 import { Context } from "koa";
-import { gql } from "@apollo/client";
+import { gql } from "@apollo/client/core";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
@@ -41,7 +41,7 @@ export default class UserController {
       variables: { username: `${processedAccount}` },
     });
 
-    if (response.data.error) {
+    if (response.data.errors) {
       ctx.status = 400;
       ctx.body = {
         status: 400,

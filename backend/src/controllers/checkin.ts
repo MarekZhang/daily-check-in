@@ -10,7 +10,6 @@ import {
 
 export default class CheckInController {
   public static async today(ctx: Context) {
-    console.log("request today checkin data");
     const todayTimestampRange = getTodayTimestampRange();
 
     const startTimeStamp = todayTimestampRange[0];

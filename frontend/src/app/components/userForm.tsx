@@ -32,7 +32,7 @@ export default function UserForm() {
         <input
           placeholder="LeetCode Account"
           name="leetCodeAccount"
-          className="outline-none w-1/2 rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-base sm:leading-6"
+          className="outline-none w-1/2 md:w-2/3 rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 text-sm sm:text-base sm:leading-6"
         />
         <input
           type="submit"
