@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   let data;
 
   const res = await axios.post(
-    "http://host.docker.internal:3002/api/v1/users",
+    "http://localhost:3002/api/v1/users",
     JSON.stringify(body),
     {
       headers: {
