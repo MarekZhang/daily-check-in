@@ -1,4 +1,3 @@
-import axios from "axios";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -6,17 +5,15 @@ export async function POST(req: Request) {
 
   let data;
 
-  const res = await axios.post(
-    "http://localhost:3002/api/v1/users",
-    JSON.stringify(body),
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const res = await fetch("http://localhost:3002/api/v1/users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
 
-  data = await res.data;
+  data = await res.json();
 
   return NextResponse.json(data);
 }
