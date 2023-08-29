@@ -11,7 +11,7 @@ const app = new Koa();
 const mongoPassword = process.env.MONGO_PASSWORD;
 const mongoURI = `mongodb+srv://mongodb:${mongoPassword}@leetcode-daily-check-in.3kux0ol.mongodb.net/?retryWrites=true&w=majority`;
 
-const PORT = process.env.PORT || 3002;
+const PORT = 3002;
 
 mongoose.connect(mongoURI).then(async () => {
   console.log("succesfully connected to mongodb.");

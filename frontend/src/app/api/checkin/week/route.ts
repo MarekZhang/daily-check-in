@@ -1,14 +1,12 @@
+import axios from "axios";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const res = await fetch(
-    "http://leetcode-checkin-backend:3002/api/v1/checkin/week",
-    {
-      next: { revalidate: 1 },
-    }
+  const res = await axios.get(
+    "http://host.docker.internal:3002/api/v1/checkin/week"
   );
 
-  const data = await res.json();
+  const data = res.data;
 
   return NextResponse.json(data);
 }

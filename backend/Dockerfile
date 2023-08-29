@@ -1,12 +1,6 @@
-FROM node:18-alpine AS base
+FROM node:18-alpine 
 
 RUN mkdir /home/node/backend 
-
-RUN npm install -g nodemon
-
-RUN npm install -g ts-node
-
-FROM base AS dependencies
 
 WORKDIR /home/node/backend
 
@@ -14,16 +8,9 @@ COPY package*.json  ./
 
 RUN npm install
 
-FROM dependencies AS build
-
 COPY . .
 
-WORKDIR /home/node/backend
-
 RUN npm run build
-
-FROM build AS prod
-
 
 EXPOSE 3002
 

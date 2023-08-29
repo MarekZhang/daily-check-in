@@ -3,7 +3,7 @@ FROM node:18-alpine AS base
 
 RUN mkdir /home/node/frontend 
 
-RUN npm install -g next 
+RUN npm install -g next@latest 
 
 FROM base AS dependencies
 

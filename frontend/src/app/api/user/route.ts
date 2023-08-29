@@ -1,3 +1,4 @@
+import axios from "axios";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -5,15 +6,17 @@ export async function POST(req: Request) {
 
   let data;
 
-  const res = await fetch("http://leetcode-checkin-backend:3002/api/v1/users", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
+  const res = await axios.post(
+    "http://host.docker.internal:3002/api/v1/users",
+    JSON.stringify(body),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
-  data = await res.json();
+  data = await res.data;
 
   return NextResponse.json(data);
 }
