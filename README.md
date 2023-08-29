@@ -8,7 +8,7 @@ In a study group focused on coding interview preparation, it's crucial to stay c
 
 ## Leaderboard
 
-- You can find the leaderboard at https://leetcode.marekzhang.com
+- You can find the leaderboard at https://leetcode.marekzhang.xyz
 - You can join in the game instantly by providing your leetcode account
 
 ## License
