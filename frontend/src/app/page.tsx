@@ -31,9 +31,7 @@ export default function Home() {
   >("Today");
 
   const fetchTodayCheckIn = async () => {
-    const resp = await fetch("/api/checkin/today", {
-      next: { revalidate: 1 },
-    });
+    const resp = await fetch("/api/checkin/today");
     const respData = await resp.json();
 
     if (respData.status === 200) {
@@ -47,11 +45,8 @@ export default function Home() {
   };
 
   const fetchWeekCheckIn = async () => {
-    const resp = await fetch("/api/checkin/week", {
-      next: { revalidate: 1 },
-    });
+    const resp = await fetch("/api/checkin/week");
     const respData = await resp.json();
-    console.log(respData);
 
     if (respData.status === 200) {
       toast.success("Successfully fetched week check in list!");
@@ -64,9 +59,7 @@ export default function Home() {
   };
 
   const fetchAllTimeCheckIn = async () => {
-    const resp = await fetch("/api/checkin/allTime", {
-      next: { revalidate: 1 },
-    });
+    const resp = await fetch("/api/checkin/allTime");
     const respData = await resp.json();
 
     if (respData.status === 200) {
@@ -127,6 +120,11 @@ export default function Home() {
               }}
             />
           </div>
+          {rankingMethod === "AllTime" && (
+            <p className="mt-4 text-gray-500">
+              The counting commenced on August 27th 2023
+            </p>
+          )}
           {/* Avatar Display */}
           {isLoading ? (
             <p className="mt-12">Loading...</p>

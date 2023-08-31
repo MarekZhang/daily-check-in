@@ -29,3 +29,13 @@ export function getWeekTimestampRange() {
 
   return [startTimeStamp, endTimeStamp];
 }
+
+export function getAllTimeTimestampRange() {
+  const now = new Date();
+  const start = new Date("2023-08-27");
+
+  const endTimeStamp = Math.floor(now.getTime() / 1000);
+  const startTimeStamp = Math.floor(start.getTime() / 1000);
+
+  return [startTimeStamp, endTimeStamp];
+}
