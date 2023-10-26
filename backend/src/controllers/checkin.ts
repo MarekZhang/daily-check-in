@@ -110,46 +110,66 @@ export default class CheckInController {
   }
 
   public static async allTime(ctx: Context) {
-    console.log("allTime");
     let users = await User.find();
-
-    const [startTimeStamp, endTimeStamp] = getAllTimeTimestampRange();
 
     users.map(async (user) => {
       const { leetCodeAccount } = user;
+      const response = await axios.post("https://leetcode.com/graphql", {
+        query: allTimeSubmission,
+        variables: { username: `${leetCodeAccount}` },
+      });
 
-      let limit = 0;
-      let count = 0;
-
-      while (count === limit) {
-        limit += 50;
-        let response = await axios.post("https://leetcode.com/graphql", {
-          query: recentSubmission,
-          variables: { username: `${leetCodeAccount}`, limit },
-        });
-
-        if (response.data.error) {
-          ctx.status = 400;
-          ctx.body = {
-            status: 400,
-            message: `Unexpected error for querying ${leetCodeAccount}'s all time submissions.`,
-          };
-          return;
-        }
-
-        count = CheckInController.submissionCount(
-          response.data.data.recentAcSubmissionList,
-          startTimeStamp,
-          endTimeStamp
-        );
+      if (response.data.error) {
+        ctx.status = 400;
+        ctx.body = {
+          status: 400,
+          message: `Unexpected error for querying ${leetCodeAccount}'s all time submissions.`,
+        };
+        return;
       }
 
-      user.allTimeAC = count;
+      const allTimeSubmissions =
+        response.data.data.matchedUser.submitStatsGlobal.acSubmissionNum;
+
+      let letAllTimeAC = allTimeSubmissions.find(
+        (item: any) => item.difficulty === "All"
+      );
+
+      const allTimeAC = letAllTimeAC ? letAllTimeAC.count : 0;
+
+      user.allTimeAC = allTimeAC;
 
       await user.save();
     });
 
-    users = await User.find().sort({ allTimeAC: -1 });
+    // const [startTimeStamp, endTimeStamp] = getAllTimeTimestampRange();
+
+    // users.map(async (user) => {
+    //   const { leetCodeAccount } = user;
+
+    //   let limit = 0;
+    //   let count = 0;
+
+    //   while (count === limit) {
+    //     limit += 50;
+    //     let response = await axios.post("https://leetcode.com/graphql", {
+    //       query: recentSubmission,
+    //       variables: { username: `${leetCodeAccount}`, limit },
+    //     });
+
+    //     count = CheckInController.submissionCount(
+    //       response.data.data.recentAcSubmissionList,
+    //       startTimeStamp,
+    //       endTimeStamp
+    //     );
+    //   }
+
+    //   user.allTimeAC = count;
+
+    //   await user.save();
+    // });
+
+    // users = await User.find().sort({ allTimeAC: -1 });
 
     ctx.status = 200;
     ctx.body = { users, status: 200 };
