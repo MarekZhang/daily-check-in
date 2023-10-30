@@ -169,7 +169,7 @@ export default class CheckInController {
     //   await user.save();
     // });
 
-    // users = await User.find().sort({ allTimeAC: -1 });
+    users = await User.find().sort({ allTimeAC: -1 });
 
     ctx.status = 200;
     ctx.body = { users, status: 200 };
